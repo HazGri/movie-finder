@@ -12,5 +12,7 @@ Optimisation des appels API : Limitation des appels inutiles en mettant en place
 
 Manipulation et affichage dynamique de données : Extraction, formatage et affichage des informations pertinentes (titre, année).  
 
+Pratique du useEffect.
+
 STACK: REACT (nextJS)  Tailwind
 
