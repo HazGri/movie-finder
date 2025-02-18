@@ -1,5 +1,7 @@
 MovieFinder est une application web qui permet de rechercher des films en temps réel grâce à une intégration d'API.
 
+clé API : https://www.omdbapi.com/apikey.aspx
+
 Ce que j'ai appris :
 
 Intégration d'une API tierce (OMDB) : Compréhension du fonctionnement d'une API REST et utilisation des paramètres de requête pour récupérer des données spécifiques.
