@@ -2,13 +2,13 @@
 import { Fragment } from "react";
 import { useQueryState } from "nuqs";
 import { useDebounceValue } from "../hooks/useDebounceValue";
-import { useApiKeyRequired } from "../hooks/useApiKeyRequired";
 import { useMovieQuery } from "../hooks/useMovieQuery";
 
 export const Input = () => {
-  const [search, setSearch] = useQueryState("search", { defaultValue: "" }); // Évite un undefined
+  const [search, setSearch] = useQueryState("search", { defaultValue: "" });
   const debouncedSearch = useDebounceValue(search, 500);
-  useApiKeyRequired();
+
+  // Utilisation du hook pour récupérer les films avec debouncedSearch
   const { data, error, isLoading } = useMovieQuery(debouncedSearch);
 
   return (
@@ -43,8 +43,11 @@ export const Input = () => {
       </form>
 
       <div className="text-white opacity-70 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+
         {error && <p>Error : {error.message}</p>}
+
         {isLoading && <span className="loading loading-bars loading-lg"></span>}
+
         {data?.Search?.length > 0 &&
           data.Search.map((movie) => (
             <div className="flex flex-col gap-4" key={movie.imdbID}>

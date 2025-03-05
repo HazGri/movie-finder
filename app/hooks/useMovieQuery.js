@@ -1,30 +1,35 @@
 "use client";
 import useSWR from "swr";
 
-
 export const useMovieQuery = (search) => {
-  return useSWR(`movie-query-${search}`, async () => {
-    if(search.length < 3){
-      throw new Error("Minimum 3 caractères !")
+  const shouldFetch = search.length >= 3;
+
+  const { data, error, isLoading } = useSWR(
+    shouldFetch ? `/api/proxyMovieQuery?search=${search}` : null,
+    async (url) => {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Erreur lors de la récupération des données");
+      }
+
+      const json = await response.json();
+
+      if (json.Response === "False") {
+        throw new Error(json.Error);
+      }
+
+      return json;
     }
+  );
 
-    const apiKey = localStorage.getItem("omdbApiKey");
+  if (!shouldFetch) {
+    return {
+      data: null,
+      error: new Error("Minimum 3 caractères !"),
+      isLoading: false,
+    };
+  }
 
-    if(!apiKey){
-      throw new Error("API KEY invalid")
-    }
-
-    const url = new URL("http://www.omdbapi.com")
-    url.searchParams.set("apiKey", search);
-
-    url.searchParams.set("apiKey", apiKey); 
-    url.searchParams.set("s", search); 
-
-    const json = await fetch(url.toString()).then((res)=>res.json());
-    return json;
-  })
-}
-
-
-
-
+  return { data, error, isLoading };
+};
