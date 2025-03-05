@@ -1,25 +1,24 @@
-"use client"; // Importer Suspense
+"use client";
+import { Fragment } from "react";
 import { useQueryState } from "nuqs";
-import { useEffect, useState } from "react";
 import { useDebounceValue } from "../hooks/useDebounceValue";
 import { useApiKeyRequired } from "../hooks/useApiKeyRequired";
 import { useMovieQuery } from "../hooks/useMovieQuery";
-import { Fragment } from "react";
 
 export const Input = () => {
-  const [search, setSearch] = useQueryState("search");
+  const [search, setSearch] = useQueryState("search", { defaultValue: "" }); // Évite un undefined
   const debouncedSearch = useDebounceValue(search, 500);
   useApiKeyRequired();
   const { data, error, isLoading } = useMovieQuery(debouncedSearch);
 
   return (
     <Fragment>
-      <form className="w-6/12" action="#">
-        <fieldset className=" p-3 rounded-md border-gray-50 opacity-80 border-2 font-bold">
+      <form className="w-6/12">
+        <fieldset className="p-3 rounded-md border-gray-50 opacity-80 border-2 font-bold">
           <legend className="font-bold opacity-70 text-white text-xl cursor-default">
             Find your movie
           </legend>
-          <label className="input input-bordered  flex items-center gap-2">
+          <label className="input input-bordered flex items-center gap-2">
             <input
               value={search || ""}
               onChange={(e) => setSearch(e.target.value)}
@@ -42,33 +41,27 @@ export const Input = () => {
           </label>
         </fieldset>
       </form>
-      <div className="text-white opacity-70 grid  grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-        {error ? <p>Error : {error.message}</p> : null}
-        {isLoading ? (
-          <span className="loading loading-bars loading-lg"></span>
-        ) : null}
-        {data?.Search?.length > 0
-          ? data.Search.map((movie) => (
-              <div className="flex flex-col gap-4" key={movie.imdbID}>
-                <img
-                  src={movie.Poster}
-                  alt={`${movie.title}'s poster`}
-                  className="w-full h-full object-cover rounded-md shadow aspect-[2/3]"
-                />
-                <div>
-                  <p className="text-sm font-medium">{movie.Title}</p>
-                  <p className="text-xs text-neutral-content font-medium">
-                    {movie.Year} | {movie.Type}
-                  </p>
-                </div>
+
+      <div className="text-white opacity-70 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+        {error && <p>Error : {error.message}</p>}
+        {isLoading && <span className="loading loading-bars loading-lg"></span>}
+        {data?.Search?.length > 0 &&
+          data.Search.map((movie) => (
+            <div className="flex flex-col gap-4" key={movie.imdbID}>
+              <img
+                src={movie.Poster}
+                alt={`${movie.Title}'s poster`}
+                className="w-full h-full object-cover rounded-md shadow aspect-[2/3]"
+              />
+              <div>
+                <p className="text-sm font-medium">{movie.Title}</p>
+                <p className="text-xs text-neutral-content font-medium">
+                  {movie.Year} | {movie.Type}
+                </p>
               </div>
-            ))
-          : null}
+            </div>
+          ))}
       </div>
     </Fragment>
   );
 };
-
-
-
-
