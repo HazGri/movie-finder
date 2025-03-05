@@ -13,7 +13,7 @@ export const Input = () => {
 
   return (
     <Fragment>
-      <form className="w-6/12">
+      <form className="sm:w-6/12">
         <fieldset className="p-3 rounded-md border-gray-50 opacity-80 border-2 font-bold">
           <legend className="font-bold opacity-70 text-white text-xl cursor-default">
             Find your movie
