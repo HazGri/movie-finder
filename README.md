@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+MovieFinder est une application web qui permet de rechercher des films en temps réel grâce à une intégration d'API.
 
-## Getting Started
+clé API : https://www.omdbapi.com/apikey.aspx
 
-First, run the development server:
+Ce que j'ai appris :
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Intégration d'une API tierce (OMDB) : Compréhension du fonctionnement d'une API REST et utilisation des paramètres de requête pour récupérer des données spécifiques.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Gestion des appels asynchrones : Utilisation de fetch avec async/await, gestion des promesses et des erreurs potentielles (try/catch).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Optimisation des appels API : Limitation des appels inutiles en mettant en place une gestion d'état ou un debounce sur la barre de recherche.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Manipulation et affichage dynamique de données : Extraction, formatage et affichage des informations pertinentes (titre, année).  
 
-## Learn More
+Pratique du useEffect.
 
-To learn more about Next.js, take a look at the following resources:
+STACK: REACT (nextJS)  Tailwind
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

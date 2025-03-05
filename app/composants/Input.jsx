@@ -1,14 +1,13 @@
-'use client';
-import { Suspense } from 'react';  // Importer Suspense
-import { useQueryState } from 'nuqs';
-import { useEffect, useState } from 'react';
-import { useDebounceValue } from '../hooks/useDebounceValue';
-import { useApiKeyRequired } from '../hooks/useApiKeyRequired';
-import { useMovieQuery } from '../hooks/useMovieQuery';
-import { Fragment } from 'react';
+"use client"; // Importer Suspense
+import { useQueryState } from "nuqs";
+import { useEffect, useState } from "react";
+import { useDebounceValue } from "../hooks/useDebounceValue";
+import { useApiKeyRequired } from "../hooks/useApiKeyRequired";
+import { useMovieQuery } from "../hooks/useMovieQuery";
+import { Fragment } from "react";
 
 export const Input = () => {
-  const [search, setSearch] = useQueryState('search');
+  const [search, setSearch] = useQueryState("search");
   const debouncedSearch = useDebounceValue(search, 500);
   useApiKeyRequired();
   const { data, error, isLoading } = useMovieQuery(debouncedSearch);
@@ -22,8 +21,8 @@ export const Input = () => {
           </legend>
           <label className="input input-bordered  flex items-center gap-2">
             <input
-              value={search || ''}
-              onChange={e => setSearch(e.target.value)}
+              value={search || ""}
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               className="grow"
               placeholder="Search"
@@ -45,7 +44,9 @@ export const Input = () => {
       </form>
       <div className="text-white opacity-70 grid  grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         {error ? <p>Error : {error.message}</p> : null}
-        {isLoading ? <span className="loading loading-bars loading-lg"></span> : null}
+        {isLoading ? (
+          <span className="loading loading-bars loading-lg"></span>
+        ) : null}
         {data?.Search?.length > 0
           ? data.Search.map((movie) => (
               <div className="flex flex-col gap-4" key={movie.imdbID}>
@@ -68,11 +69,6 @@ export const Input = () => {
   );
 };
 
-// Utilisation du Suspense dans le composant parent
-const Page = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <Input />
-  </Suspense>
-);
 
-export default Page;
+
+
